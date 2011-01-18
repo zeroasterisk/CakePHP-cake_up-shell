@@ -104,6 +104,18 @@ class CakeUpShell extends Shell{
 			// http://book.cakephp.org/view/577/Configure
 			$issues[] = "->renderElement() needs to change to ->element()";
 		}
+		if (preg_match('/->del\(/', $code)) {
+			// http://book.cakephp.org/view/1561/Migrating-from-CakePHP-1-2-to-1-3
+			$issues[] = "->del() needs to change to ->delete()";
+		}
+		if (preg_match('/->getReferrer\(/', $code)) {
+			// http://book.cakephp.org/view/1561/Migrating-from-CakePHP-1-2-to-1-3
+			$issues[] = "->getReferrer() needs to change to ->getReferer()";
+		}
+		if (preg_match('/->(mkdir|mv|ls|cp|rm)\(/', $code)) {
+			// http://book.cakephp.org/view/1561/Migrating-from-CakePHP-1-2-to-1-3
+			$issues[] = "->(mkdir|mv|ls|cp|rm) needs to change to ->(create|move|read|copy|delete) Folder Methods";
+		}
 		if (preg_match('/\$(this->)?(H|h)tml->(input|hidden|value|label|checkbox)\(/i', $code, $matches)) {
 			// http://book.cakephp.org/view/578/HTML-Helper-to-Form-Helper
 			$issues[] = "Html helper migrated to Form helper";
@@ -112,8 +124,9 @@ class CakeUpShell extends Shell{
 			// http://book.cakephp.org/view/580/Model-generateList
 			$issues[] = "generateList() needs to be migrated to find('list', array())";
 		}
-		if (preg_match('/(VALID_EMAIL|VALID_NOT_EMPTY|VALID_NUMBER)/i', $code, $matches)) {
-			$issues[] = "Old Validation constants need to be updated ".json_encode($code);
+		if (preg_match('/(VALID_EMAIL|VALID_NOT_EMPTY|VALID_NUMBER|PEAR|INFLECTIONS|CIPHER_SEED)/i', $code, $matches)) {
+			// http://book.cakephp.org/view/1561/Migrating-from-CakePHP-1-2-to-1-3
+			$issues[] = "Old Validation constants need to be updated (cakephp 1.3) ".json_encode($matches);
 		}
 		return $issues;
 	}
@@ -125,6 +138,13 @@ class CakeUpShell extends Shell{
 	function code_issue_replace($file, $code) {
 		$code = preg_replace('/DEBUG/', 'configure::read(\'debug\')', $code);
 		$code = preg_replace('/->renderElement\(/', '->element(', $code);
+		$code = preg_replace('/->del\(/', '->delete(', $code);
+		$code = preg_replace('/->getReferrer\(/', '->getReferer(', $code);
+		$code = preg_replace('/->mkdir\(/', '->create(', $code);
+		$code = preg_replace('/->mv\(/', '->move(', $code);
+		$code = preg_replace('/->ls\(/', '->read(', $code);
+		$code = preg_replace('/->cp\(/', '->copy(', $code);
+		$code = preg_replace('/->rm\(/', '->delete(', $code);
 		$code = preg_replace('/\$(this->)?(H|h)tml->(input|hidden|value|label|checkbox)\(/i', '$this->Form->$3(', $code);
 		$code = preg_replace('/->generateList\(\)/i', '->find(\'list\')', $code);
 		$code = preg_replace('/->generateList\((null),\s*(null),\s*(null),\s*[\'"]\{n\}\.([\.\_\\$-\>a-zA-Z]+)[\'"],\s*[\'"]\{n\}\.([\.\_\\$-\>a-zA-Z]+)[\'"]\)/i',
