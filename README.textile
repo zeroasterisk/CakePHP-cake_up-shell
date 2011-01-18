@@ -33,15 +33,16 @@ CakeUpShell Shell: HELP
 This shell is intended to ease upgrading from a cakephp 1.1 application to a cake 1.2 or 1.3+
 This must be run AFTER upgrading the cake folder to 1.2+
 
-CakeUpShell views                                       renames .thtml to .ctp
+cake cake_up views                                      renames .thtml to .ctp
 
-CakeUpShell code                                        looks for cakephp 1.1 code
-CakeUpShell code replace                        automatically fixes known/easy 1.1 code replacements
+cake cake_up code                                       looks for cakephp 1.1 code
+cake cake_up code replace                       automatically fixes known/easy 1.1 code replacements
                                                 WARNING: alters your site code
                                                 WARNING: be sure you've got a backup
 
 note: the code find/replace functionality is based on some simple case regexes...
       They are not going to work for everyone.
       If you want to improve them for your needs, great, submit a pull request in github.
+
 </code></pre>
 

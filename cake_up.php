@@ -12,15 +12,15 @@ class CakeUpShell extends Shell{
 		$this->help();
 	}
 	function help() {
-		$this->out("{$this->name} Shell: HELP");
+		$this->out("{$this->shell} Shell: HELP");
 		$this->hr();
 		$this->out("This shell is intended to ease upgrading from a cakephp 1.1 application to a cake 1.2 or 1.3+");
 		$this->out("This must be run AFTER upgrading the cake folder to 1.2+");
 		$this->out();
-		$this->out("{$this->name} views					renames .thtml to .ctp");
+		$this->out("cake {$this->shell} views					renames .thtml to .ctp");
 		$this->out();
-		$this->out("{$this->name} code 					looks for cakephp 1.1 code");
-		$this->out("{$this->name} code replace			automatically fixes known/easy 1.1 code replacements");
+		$this->out("cake {$this->shell} code 					looks for cakephp 1.1 code");
+		$this->out("cake {$this->shell} code replace			automatically fixes known/easy 1.1 code replacements");
 		$this->out("                          			WARNING: alters your site code");
 		$this->out("                          			WARNING: be sure you've got a backup");
 		$this->out();
