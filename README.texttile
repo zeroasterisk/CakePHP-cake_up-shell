@@ -1,0 +1,47 @@
+h1. A Shell for helping Upgrade from CakePHP 1.1 to CakePHP 1.2+
+
+First, read up on the changes and migration:
+
+* http://book.cakephp.org/edit/411/Migrating-from-CakePHP-1-1-to-1-2
+
+h2. Setting up
+
+Be sure you're using a version control system or at the very least, have a backup of all your code.  We've gotta blow away the old cake core folder and change most of the files in the application.  *Verify Backup*
+
+Download the latest CakePHP package
+upgrade the 'cake' folder: delete the old one and copy the new in place
+upgrade the 'app/webroot/*.php' files: delete the old one and copy the new in place
+upgrade the 'app/config/core.php' file: merge the new into the old (or just copy over and re-configure)
+upgrade the 'app/config/routes.php' file: merge the new into the old (or just copy over and re-configure)
+
+h2. Using this Shell
+
+Download the cake_up.php shell to: @app/vendors/shells/cake_up.php@
+
+Once done, you can use it from the console, like any other shell.
+
+<pre><code>
+
+
+  $ cd /path-to-site/app
+  $ cake cake_up
+
+
+---------------------------------------------------------------
+CakeUpShell Shell: HELP
+---------------------------------------------------------------
+This shell is intended to ease upgrading from a cakephp 1.1 application to a cake 1.2 or 1.3+
+This must be run AFTER upgrading the cake folder to 1.2+
+
+CakeUpShell views                                       renames .thtml to .ctp
+
+CakeUpShell code                                        looks for cakephp 1.1 code
+CakeUpShell code replace                        automatically fixes known/easy 1.1 code replacements
+                                                WARNING: alters your site code
+                                                WARNING: be sure you've got a backup
+
+note: the code find/replace functionality is based on some simple case regexes...
+      They are not going to work for everyone.
+      If you want to improve them for your needs, great, submit a pull request in github.
+</code></pre>
+
